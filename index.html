@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Include the CesiumJS JavaScript and CSS files -->
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.99/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.99/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="cesiumContainer">
+
+  </div>
+  <script>
+    var moon = {
+      x: 1737400.0,
+      y: 1737400.0,
+      z: 1735970.0,
+      baseColor: Cesium.Color.BLUE,
+      defaultImagery: 'planetary-imagery/moon.jpg'
+    }
+
+    let ellipsoid = new Cesium.Ellipsoid(6378137.0, 6378137.0, 6356752.3)
+
+    var providerOptions = {
+      url: moon.defaultImagery,
+      ellipsoid: ellipsoid
+    };
+
+    let imagery = new Cesium.SingleTileImageryProvider(providerOptions);
+
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      // The CesiumWidget and the Globe get Ellipsoid from Scene.mapProjection.
+      mapProjection: new Cesium.GeographicProjection(ellipsoid),
+      // Don't forget your imagery provider that uses the ellipsoid.
+      imageryProvider: imagery,
+      // Set some other options too.
+      selectionIndicator: false,
+      infoBox: false,
+      baseLayerPicker: false,
+      geocoder: false,
+      skyAtmosphere: false
+    });
+  </script>
+  </div>
+</body>
+
+</html>
